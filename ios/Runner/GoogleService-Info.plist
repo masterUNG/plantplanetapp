@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>781491142384-79aq52no7fccl64d1ll99a6u3kois7gb.apps.googleusercontent.com</string>
+	<string>781491142384-laj1bnscqjlpams80g89p3dd0uojvan3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.781491142384-79aq52no7fccl64d1ll99a6u3kois7gb</string>
+	<string>com.googleusercontent.apps.781491142384-laj1bnscqjlpams80g89p3dd0uojvan3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>781491142384-0ptro6kpd3nufi7hom77seuvcp7o2jct.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBtPI4SVQ1_YhmXNaJG8GLRC2Orqp6j-98</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.plantplanetapp</string>
+	<string>com.masterung.plantplanetapp</string>
 	<key>PROJECT_ID</key>
 	<string>plantplanetapp-afb2e</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:781491142384:ios:71b528b24aa27865bf4c35</string>
+	<string>1:781491142384:ios:6b5290a855a27e08bf4c35</string>
 </dict>
 </plist>
