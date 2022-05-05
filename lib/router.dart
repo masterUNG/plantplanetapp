@@ -4,11 +4,15 @@ import 'package:plantplanetapp/states/authen.dart';
 import 'package:plantplanetapp/states/create_account.dart';
 import 'package:plantplanetapp/states/my_service_seller.dart';
 import 'package:plantplanetapp/states/my_service_user.dart';
+import 'package:plantplanetapp/utility/my_constant.dart';
 
 final Map<String, WidgetBuilder> map = {
-  '/authen': (BuildContext context) => Authen(),
-  '/createAccount': (BuildContext context) => CreateAccount(),
-  '/myServiceUser': (BuildContext context) => MyServiceUser(),
-  '/myServiceSeller': (BuildContext context) => MyServiceSeller(),
-  '/addProduct': (BuildContext context) => AddProductSeller(),
+  MyConstant.rountAuthen: (BuildContext context) => const Authen(),
+  MyConstant.rountCreateAccount: (BuildContext context) =>
+      const CreateAccount(),
+  MyConstant.rountServiceUser: (BuildContext context) => MyServiceUser(),
+  MyConstant.rountServiceSeller: (BuildContext context) =>
+      const MyServiceSeller(),
+  MyConstant.rountAddProduct: (BuildContext context) =>
+      const AddProductSeller(),
 };

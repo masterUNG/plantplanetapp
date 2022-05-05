@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +21,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   Container buildUsername() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: const EdgeInsets.only(top: 16),
       width: screenWidth * 0.7,
       child: TextField(
         onChanged: (value) => username = value.trim(),
@@ -43,7 +45,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   Container buildPassword() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: const EdgeInsets.only(top: 16),
       width: screenWidth * 0.7,
       child: TextField(
         onChanged: (value) => password = value.trim(),
@@ -94,22 +96,26 @@ class _CreateAccountState extends State<CreateAccount> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Account'),
+        title: const Text('Create Account'),
         backgroundColor: MyStyle().dark,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              buildLogo(),
-              buildUsername(),
-              buildEmail(),
-              buildPassword(),
-              buildTitle(),
-              buildTypeUser(),
-              buildTypeSeller(),
-              buildCreateAccountButton(),
-            ],
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(context).requestFocus(FocusScopeNode()),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                buildLogo(),
+                buildUsername(),
+                buildEmail(),
+                buildPassword(),
+                buildTitle(),
+                buildTypeUser(),
+                buildTypeSeller(),
+                buildCreateAccountButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -118,7 +124,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   Container buildCreateAccountButton() {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 30),
       width: screenWidth * 0.5,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -132,9 +138,11 @@ class _CreateAccountState extends State<CreateAccount> {
               (email?.isEmpty ?? true) ||
               (password?.isEmpty ?? true)) {
             print('Have Space');
-            normalDialog(context, 'Have Space ?', 'Please Fill In The Blank');
+            MyDialog(context: context).normalDialog(
+                title: 'Have Space ?', message: 'Please Fill In The Blank');
           } else if (typeUser == null) {
-            normalDialog(context, 'No Type User ?', 'Please Choouse Type User');
+            MyDialog(context: context).normalDialog(
+                title: 'No Type User ?', message: 'Please Choouse Type User');
           } else {
             createAccountAndInsertInformation();
           }
@@ -184,8 +192,9 @@ class _CreateAccountState extends State<CreateAccount> {
             }
           });
         });
-      }).catchError((onError) =>
-              normalDialog(context, onError.code, onError.message));
+      }).catchError((onError) {
+        return  MyDialog(context: context).normalDialog(title: onError.code, message: onError.message);
+      });
     });
   }
 

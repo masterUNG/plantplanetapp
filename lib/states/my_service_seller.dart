@@ -15,9 +15,9 @@ class MyServiceSeller extends StatefulWidget {
 
 class _MyServiceSellerState extends State<MyServiceSeller> {
   List<Widget> widgets = [
-    ShowOrderSeller(),
-    ShowProductSeller(),
-    AddProductSeller(),
+    const ShowOrderSeller(),
+    const ShowProductSeller(),
+    // AddProductSeller(),
   ];
   int indexWidget = 0;
 
@@ -30,13 +30,14 @@ class _MyServiceSellerState extends State<MyServiceSeller> {
       drawer: Drawer(
         child: Stack(
           children: [
-            MySignOut(),
+            const MySignOut(),
             Column(
               children: [
                 UserAccountsDrawerHeader(accountName: null, accountEmail: null),
-                menuShowProduct(),
-                menuAddProduct(),
                 menuShowOrder(),
+                menuShowProduct(),
+                // menuAddProduct(),
+               
               ],
             ),
           ],
@@ -50,7 +51,7 @@ class _MyServiceSellerState extends State<MyServiceSeller> {
     return ListTile(
       onTap: () {
         setState(() {
-          indexWidget = 0;
+          indexWidget = 1;
           Navigator.pop(context);
         });
       },
@@ -82,11 +83,11 @@ class _MyServiceSellerState extends State<MyServiceSeller> {
     return ListTile(
       onTap: () {
         setState(() {
-          indexWidget = 2;
+          indexWidget = 0;
           Navigator.pop(context);
         });
       },
-      leading: Icon(Icons.airport_shuttle_outlined),
+      leading: const Icon(Icons.airport_shuttle_outlined),
       title: ShowTitle(
         title: 'Your Order',
         textStyle: MyStyle().h2Style(),

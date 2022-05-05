@@ -1,46 +1,45 @@
-import 'dart:typed_data';
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:plantplanetapp/models/user_model.dart';
 import 'package:plantplanetapp/router.dart';
+import 'package:plantplanetapp/utility/my_constant.dart';
 import 'package:plantplanetapp/utility/my_style.dart';
 
-String initRoute = '/authen';
+String initRoute = MyConstant.rountAuthen;
 
-Future<Null> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) async {
-    await FirebaseAuth.instance.authStateChanges().listen((event) async {
+    FirebaseAuth.instance.authStateChanges().listen((event) async {
       if (event != null) {
         //login
         String uid = event.uid;
+
         await FirebaseFirestore.instance
             .collection('user')
             .doc(uid)
-            .snapshots()
-            .listen((event) {
-          UserModel model = UserModel.fromMap(event.data()!);
-          switch (model.typeUser) {
+            .get()
+            .then((value) {
+          UserModel userModel = UserModel.fromMap(value.data()!);
+          switch (userModel.typeUser) {
             case 'user':
-              initRoute = '/myServiceUser';
-              runApp(MyApp());
+              initRoute = MyConstant.rountServiceUser;
+              runApp(const MyApp());
               break;
             case 'seller':
-              initRoute = '/myServiceSeller';
-              runApp(MyApp());
+              initRoute = MyConstant.rountServiceSeller;
+              runApp(const MyApp());
               break;
             default:
-              print('##### No Type User#####');
-              initRoute = '/authen';
-              runApp(MyApp());
-              break;
           }
         });
       } else {
         //logout
-        runApp(MyApp());
+        runApp(const MyApp());
       }
     });
   });

@@ -1,10 +1,12 @@
-import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:plantplanetapp/models/user_model.dart';
+import 'package:plantplanetapp/utility/dialog.dart';
+import 'package:plantplanetapp/utility/my_constant.dart';
 import 'package:plantplanetapp/utility/my_style.dart';
 import 'package:plantplanetapp/widgets/show_title.dart';
 
@@ -18,6 +20,7 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   late double screenWidth, screenHeight;
   bool redEye = true;
+  String? username, password;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +40,9 @@ class _AuthenState extends State<Authen> {
                   buildUser(),
                   buildPassword(),
                   buildSigninEmail(),
-                  buildSigninGoogle(),
-                  buildSigninFacebook(),
+                  // buildSigninGoogle(),
+                  // buildSigninFacebook(),
+
                   buildCreateAccount(),
                 ],
               ),
@@ -66,10 +70,17 @@ class _AuthenState extends State<Authen> {
   }
 
   Container buildSigninEmail() => Container(
-        margin: EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 30),
         child: SignInButton(
           Buttons.Email,
-          onPressed: () {},
+          onPressed: () {
+            if ((username?.isEmpty ?? true) || (password?.isEmpty ?? true)) {
+              MyDialog(context: context).normalDialog(
+                  title: 'Have Space ?', message: 'Please Fill Every Blank');
+            } else {
+              processCheckAuthen();
+            }
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -121,6 +132,7 @@ class _AuthenState extends State<Authen> {
       margin: EdgeInsets.only(top: 16),
       width: screenWidth * 0.7,
       child: TextField(
+        onChanged: (value) => username = value.trim(),
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.perm_identity_outlined,
@@ -144,6 +156,7 @@ class _AuthenState extends State<Authen> {
       margin: EdgeInsets.only(top: 16),
       width: screenWidth * 0.7,
       child: TextField(
+        onChanged: (value) => password = value.trim(),
         obscureText: redEye,
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -186,5 +199,34 @@ class _AuthenState extends State<Authen> {
         ),
       ],
     );
+  }
+
+  Future<void> processCheckAuthen() async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: username!, password: password!)
+        .then((value) async {
+      String uidLogin = value.user!.uid;
+      await FirebaseFirestore.instance
+          .collection('user')
+          .doc(uidLogin)
+          .get()
+          .then((value) {
+        UserModel userModel = UserModel.fromMap(value.data()!);
+        switch (userModel.typeUser) {
+          case 'user':
+            Navigator.pushNamedAndRemoveUntil(
+                context, MyConstant.rountServiceUser, (route) => false);
+            break;
+          case 'seller':
+            Navigator.pushNamedAndRemoveUntil(
+                context, MyConstant.rountServiceSeller, (route) => false);
+            break;
+          default:
+        }
+      });
+    }).catchError((onError) {
+      MyDialog(context: context)
+          .normalDialog(title: onError.code, message: onError.message);
+    });
   }
 }

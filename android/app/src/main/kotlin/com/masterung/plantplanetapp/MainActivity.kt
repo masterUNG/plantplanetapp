@@ -1,4 +1,4 @@
-package com.example.plantplanetapp
+package com.masterung.plantplanetapp
 
 import io.flutter.embedding.android.FlutterActivity
 
