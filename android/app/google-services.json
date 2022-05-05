@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "781491142384",
+    "project_id": "plantplanetapp-afb2e",
+    "storage_bucket": "plantplanetapp-afb2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781491142384:android:ed37fd0c0315cfdcbf4c35",
+        "android_client_info": {
+          "package_name": "com.example.plantplanetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781491142384-0ptro6kpd3nufi7hom77seuvcp7o2jct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantplanetapp",
+            "certificate_hash": "1cafe996ceeaa0b8759022da5bfa81ca02a5a86d"
+          }
+        },
+        {
+          "client_id": "781491142384-69gmkt15lheapdelvndd02nrs10g079e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCGl7yXSWNCQp7wSusPis-Mle4CIfFqn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781491142384-69gmkt15lheapdelvndd02nrs10g079e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "781491142384-79aq52no7fccl64d1ll99a6u3kois7gb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.plantplanetapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
